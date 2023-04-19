@@ -1,0 +1,37 @@
+#!/usr/bin/env node
+
+const { program, chalk } = require("../libs/tools/module");
+const { version, name } = require("../libs/utils/constants");
+const log = console.log;
+
+program.version(version).usage("command <options>");
+
+program.on("--help", () => {
+  log(`Run ${chalk.red(`${name} <command> --help`)} show details`);
+});
+
+program
+  .command("create <project-name>")
+  .description("创建一个项目")
+  .option("-f --force", "overwrite target if it exists")
+  .action((name, options) => {
+    if (!name) {
+        console.log(chalk.red('请输入项目名称'));
+        return
+    }
+    require('../libs/command/create')(name, options)
+  });
+
+  program
+  .command("add")
+  .description("add a new template")
+  .action(() => {
+    require('../libs/command/add')
+  });
+program.parse(process.argv);
+
+if (!program.args.length) {
+  program.help();
+}
+
+
