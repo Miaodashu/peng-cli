@@ -3,7 +3,7 @@
 const { program, chalk } = require("../libs/tools/module");
 const { version, name } = require("../libs/utils/constants");
 const log = console.log;
-
+const tplObj = require(`${__dirname}/../template`);
 program.version(version).usage("command <options>");
 
 program.on("--help", () => {
@@ -19,7 +19,8 @@ program
         console.log(chalk.red('请输入项目名称'));
         return
     }
-    require('../libs/command/create')(name, options)
+    console.log(options);
+    // require('../libs/command/create')(name, options)
   });
 
   program
@@ -27,6 +28,17 @@ program
   .description("add a new template")
   .action(() => {
     require('../libs/command/add')
+  });
+  program
+  .command("list")
+  .description("see template list")
+  .action(() => {
+    log(chalk.blue('-------------模板列表---------'))
+    Object.keys(tplObj).map((el) => {
+      log((`${el}` + ': ' + chalk.green `${tplObj[el]}`))
+    });
+    log(chalk.blue('-------------模板列表---------'))
+    
   });
 program.parse(process.argv);
 

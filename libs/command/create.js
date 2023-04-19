@@ -41,6 +41,6 @@ module.exports = async (projectName, options) => {
     // 创建后续新的交互
     const creator = new Creator(projectName,targetDir)
     // 创建项目
-    creator.create();
+    // creator.create();
 
 }
