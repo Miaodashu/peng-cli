@@ -27,7 +27,7 @@ module.exports = class Creator {
     await this.download(url);
 
     // 下载依赖
-    // await downloadNodeModules(this.name)
+    await downloadNodeModules(this.name)
   }
 
   async selectTemplate() {
@@ -96,10 +96,6 @@ module.exports = class Creator {
       }
       // 结束加载图标
       spinner.succeed();
-      // console.log(
-      //   `\rplease enter file ${tchalk.green(this.name)}  to install dependencies`
-      // );
-      // console.log(chalk.green(`\n cd ${this.name} \n npm install \n`));
       this.downloadNodeModules()
     });
   }
@@ -110,23 +106,6 @@ module.exports = class Creator {
     const spinner = ora("Downloading node_modules...");
     let that = this
     spinner.start();
-    //执行安装node_modules的以来
-    // cp.exec(execProcess, function (error, stdout, stderr) {
-    //   //如果下载不成功 则提示进入目录重新安装
-    //   if (error) {
-    //     spinner.fail();
-    //     console.log(chalk.red(`安装依赖失败. ${error}`));
-    //     spinner.warn(`\rplease enter file《 ${that.name} 》 to install dependencies`);
-
-    //     console.log(chalk.green(`\n cd ${that.name} \n npm install \n`));
-    //     process.exit();
-    //   } else {
-    //     spinner.succeed('安装依赖成功');
-    //     //如果成功则直接提示进入目录 执行即可
-    //     console.log(chalk.green(`\n cd ${that.name} \n npm run server \n`));
-    //   }
-    //   process.exit();
-    // });
     const execa = require("execa");
   
     execa(`${execProcess}`, {

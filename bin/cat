@@ -7,43 +7,43 @@ const tplObj = require(`${__dirname}/../template`);
 program.version(version).usage("command <options>");
 
 program.on("--help", () => {
-  log(`Run ${chalk.red(`${name} <command> --help`)} show details`);
+    log(`Run ${chalk.red(`${name} <command> --help`)} show details`);
 });
 
 program
-  .command("create <project-name>")
-  .description("创建一个项目")
-  .option("-f --force", "overwrite target if it exists")
-  .action((name, options) => {
-    if (!name) {
-        console.log(chalk.red('请输入项目名称'));
-        return
-    }
-    console.log(options);
-    // require('../libs/command/create')(name, options)
-  });
-
-  program
-  .command("add")
-  .description("add a new template")
-  .action(() => {
-    require('../libs/command/add')
-  });
-  program
-  .command("list")
-  .description("see template list")
-  .action(() => {
-    log(chalk.blue('-------------模板列表---------'))
-    Object.keys(tplObj).map((el) => {
-      log((`${el}` + ': ' + chalk.green `${tplObj[el]}`))
+    .command("create <project-name>")
+    .description("创建一个项目")
+    .option("-f --force", "overwrite target if it exists")
+    .action((name, options) => {
+        if (!name) {
+            console.log(chalk.red('请输入项目名称'));
+            return
+        }
+        console.log(options);
+        require('../libs/command/create')(name, options)
     });
-    log(chalk.blue('-------------模板列表---------'))
-    
-  });
+
+program
+    .command("add")
+    .description("add a new template")
+    .action(() => {
+        require('../libs/command/add')
+    });
+program
+    .command("list")
+    .description("see template list")
+    .action(() => {
+        log(chalk.blue('-------------模板列表---------'))
+        Object.keys(tplObj).map((el) => {
+            log((`${el}` + ': ' + chalk.green`${tplObj[el]}`))
+        });
+        log(chalk.blue('-------------模板列表---------'))
+
+    });
 program.parse(process.argv);
 
 if (!program.args.length) {
-  program.help();
+    program.help();
 }
 
 
